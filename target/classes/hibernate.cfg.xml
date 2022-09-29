@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Set URL -->
+        <property name = "hibernate.connection.url">
+            jdbc:sqlserver://0.0.0.0:1433;DatabaseName=FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041;Encrypt=false;TrustServerCertificate=true
+        </property>
+        <property name = "hibernate.connection.username">
+            sa
+        </property>
+        <property name = "hibernate.connection.password">
+            r00t.R00T
+        </property>
+        <property name = "hibernate.connection.driver_class">
+            com.microsoft.sqlserver.jdbc.SQLServerDriver
+        </property>
+        <property name = "hibernate.show_sql">true</property>
+    </session-factory>
+</hibernate-configuration>
