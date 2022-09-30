@@ -58,18 +58,22 @@ public class Manager extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!(new RepoProduct().findName(product_id.getText()))) {
+                if ((new RepoProduct().findName(product_id.getText()))) {
                     new RepoProduct().insert(new Product(
                             product_id.getText(),
                             product_name.getText()
                     ));
                 }
-                new RepoProductDetail().insert(
+                new Repo<ProductDetail>().insert(
                     new ProductDetail(
-                        new RepoProduct().findIdByName(product_id.getText()),
-                        new RepoProductColor().findIdByName(product_color.getSelectedItem().toString()),
-                        new RepoProducer().findIdByName(producer.getSelectedItem().toString()),
-                        new RepoProductLine().findIdByName(product_line.getSelectedItem().toString())
+                        new RepoProduct()
+                                .findIdByName(product_name.getText()),
+                        new RepoProductColor()
+                                .findIdByName(product_color.getSelectedItem().toString()),
+                        new RepoProducer()
+                                .findIdByName(producer.getSelectedItem().toString()),
+                        new RepoProductLine()
+                                .findIdByName(product_line.getSelectedItem().toString())
                     )
                 );
                 fillTable();

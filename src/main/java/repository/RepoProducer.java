@@ -19,7 +19,7 @@ public class RepoProducer extends DataQuery {
     public model.Producer findByName(String producer_name) {
         return
             (model.Producer)
-            createQuery("SELECT P.id FROM Producer P WHERE P.Name = " + SQLStr(producer_name))
+            createQuery("FROM Producer P WHERE P.Name = " + SQLStr(producer_name))
                 .list()
                 .get(0);
     }
