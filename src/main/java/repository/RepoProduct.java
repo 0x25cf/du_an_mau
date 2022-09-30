@@ -27,6 +27,13 @@ public class RepoProduct extends DataQuery {
         return findByName(product_name).get(0).getId();
     }
 
+    public String findNameById(String product_id) {
+        var result = findById(product_id);
+        if (result.isEmpty()) return "";
+        return result.get(0).getName();
+    }
+
+
     public boolean insert(Product product) {
         var s = openSession();
         s.beginTransaction();

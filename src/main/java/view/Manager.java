@@ -8,10 +8,7 @@ import service.Inserter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public class Manager extends JFrame{
     private JPanel content;
@@ -94,20 +91,20 @@ public class Manager extends JFrame{
 
         fillTable();
         product_id.addKeyListener(new KeyAdapter() {
-            /**
-             * Invoked when a key has been pressed.
-             *
-             * @param e
-             */
             @Override
             public void keyPressed(KeyEvent e) {
-                var pro = new RepoProduct().findById(product_id.getText() + e.getKeyChar());
-                if (!pro.isEmpty()) {
-                    product_name.setText(pro.get(0).getName());
-                    product_name.setEditable(false);
-                } else {
-                    product_name.setEditable(true);
-                    product_name.setText("");
+                product_name.setText(new RepoProduct().findNameById(product_id.getText() + e.getKeyChar()));
+            }
+        });
+        data.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (data.getSelectedRowCount() == 1) {
+                    var product_info = new RepoProductDetail().selectAll().get(data.getSelectedRow());
+                    product_id.setText(product_info.getProduct().getProductId());
+                    product_name.setText(product_info.getProduct().getName());
+                    product_color.setSelectedItem(product_info.getColor().getCode());
+                    product_line.setSelectedItem(product_info.getProduct_line().getProductLineId());
                 }
             }
         });
