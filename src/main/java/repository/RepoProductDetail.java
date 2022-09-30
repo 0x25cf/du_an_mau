@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RepoProductDetail extends DataQuery {
 
-    public ArrayList<ProductDetail> selectAll() {
+    public ArrayList<ProductDetail> findAll() {
         return (ArrayList<ProductDetail>) createQuery("FROM ProductDetail").list();
     }
 

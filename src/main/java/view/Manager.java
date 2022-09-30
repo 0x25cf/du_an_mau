@@ -100,7 +100,7 @@ public class Manager extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (data.getSelectedRowCount() == 1) {
-                    var product_info = new RepoProductDetail().selectAll().get(data.getSelectedRow());
+                    var product_info = new RepoProductDetail().findAll().get(data.getSelectedRow());
                     product_id.setText(product_info.getProduct().getProductId());
                     product_name.setText(product_info.getProduct().getName());
                     product_color.setSelectedItem(product_info.getColor().getCode());
@@ -112,14 +112,14 @@ public class Manager extends JFrame{
 
     public void fillTable() {
         this.staff_model.setRowCount(0);
-        for (ProductDetail i: new RepoProductDetail().selectAll()) {
+        for (ProductDetail i: new RepoProductDetail().findAll()) {
             this.staff_model.addRow(
                     i.toStrings()
             );
         }
 
         this.customer_model.setRowCount(0);
-        for (ProductDetail i: new RepoProductDetail().selectAll()) {
+        for (ProductDetail i: new RepoProductDetail().findAll()) {
             this.customer_model.addRow(
                     i.toStrings()
             );
