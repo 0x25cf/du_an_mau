@@ -25,14 +25,13 @@ public class RepoProduct extends DataQuery {
                 """).list();
     }
 
-    public String findIdByProductId(String product_id) {
-        return (createQuery("SELECT P.id FROM Product P WHERE P.ProductId = " + SQLStr(product_id))
-                .list()).get(0).toString();
-    }
-
     public ArrayList<model.Product> findByName(String product_name) {
         return new ArrayList<model.Product>(createQuery("FROM Product P WHERE P.Name = " + SQLStr(product_name))
                     .list());
+    }
+
+    public String findIdByProductId(String product_id) {
+        return findById(product_id).get(0).getId();
     }
 
     public String findIdByName(String product_name) {

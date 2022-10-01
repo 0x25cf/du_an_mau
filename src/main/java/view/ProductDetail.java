@@ -1,10 +1,6 @@
 package view;
 
-import repository.RepoProducer;
-import repository.RepoProduct;
-import repository.RepoProductColor;
-import repository.RepoProductLine;
-
+import repository.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

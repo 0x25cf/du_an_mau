@@ -4,7 +4,7 @@ import model.Product;
 
 import java.util.List;
 
-public class Repo<T extends Object> extends DataQuery {
+public class Repo<T> extends DataQuery {
 
     public boolean insert(T value) {
         var s = openSession();
@@ -17,6 +17,7 @@ public class Repo<T extends Object> extends DataQuery {
     public boolean update(T value) {
         var s = openSession();
         s.beginTransaction();
+        s.detach(value);
         s.merge(value);
         s.getTransaction().commit();
         return true;

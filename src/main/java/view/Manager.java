@@ -1,6 +1,5 @@
 package view;
 
-import model.Product;
 import repository.*;
 
 import javax.swing.*;
@@ -17,10 +16,15 @@ public class Manager extends JFrame{
     private JComboBox product_color;
     private JButton addButton;
     private JButton editButton;
-    private JButton deleteButton;
+    private JButton xoaSanPhamButton;
     private JComboBox producer;
     private JComboBox product_line;
-    private JTable customer_product_view;
+    private JTable customer_product_detail_view;
+    private JTextField customer_product_id;
+    private JTextField customer_product_name;
+    private JTextField customer_product_color;
+    private JTextField customer_producer;
+    private JTextField customer_product_line;
 
     private DefaultTableModel staff_model, customer_model;
 
@@ -37,13 +41,13 @@ public class Manager extends JFrame{
                 0
         ));
 
-        customer_product_view.setModel(new DefaultTableModel(
+        customer_product_detail_view.setModel(new DefaultTableModel(
                 new String[] {"ma", "ten", "mau", "nha san xuat", "dong san pham"},
                 0
         ));
 
         this.staff_model = (DefaultTableModel) data.getModel();
-        this.customer_model = (DefaultTableModel) customer_product_view.getModel();
+        this.customer_model = (DefaultTableModel) customer_product_detail_view.getModel();
 
         addButton.addActionListener(new ActionListener() {
             /**
@@ -53,8 +57,8 @@ public class Manager extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!(new RepoProduct().findName(product_id.getText()))) {
-                    new Repo<model.Product>().insert(new Product(
+                if (new RepoProduct().findIdByProductId(product_id.getText()).isEmpty()) {
+                    new Repo<model.Product>().insert(new model.Product(
                             product_id.getText(),
                             product_name.getText()
                     ));
@@ -62,7 +66,7 @@ public class Manager extends JFrame{
                 new Repo<model.ProductDetail>().insert(
                     new model.ProductDetail(
                         new RepoProduct()
-                                .findIdByName(product_name.getText()),
+                                .findIdByProductId(product_id.getText()),
                         new RepoProductColor()
                                 .findIdByName(product_color.getSelectedItem().toString()),
                         new RepoProducer()
@@ -114,6 +118,19 @@ public class Manager extends JFrame{
                 product_updater.setVisible(true);
                 new Repo<model.ProductDetail>().update(product_updater.update());
                 fillTable();
+            }
+        });
+        customer_product_detail_view.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                var curr_product = new RepoProductDetail()
+                        .findAll()
+                        .get(customer_product_detail_view.getSelectedRow());
+                customer_product_id.setText(curr_product.getProduct().getProductId());
+                customer_product_name.setText(curr_product.getProduct().getName());
+                customer_product_color.setText(curr_product.getColor().getName());
+                customer_producer.setText(curr_product.getProducer().getName());
+                customer_product_line.setText(curr_product.getProduct_line().getName());
             }
         });
     }
