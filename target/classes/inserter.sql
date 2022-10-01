@@ -1,7 +1,5 @@
 USE FINALASS_FPOLYSHOP_FA22_SOF205__SOF2041
                 
-select *from chitietsp
-
 INSERT INTO SanPham (ma, Ten)
 VALUES
     ('P001', 'giày adidas'),

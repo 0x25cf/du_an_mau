@@ -1,13 +1,11 @@
 package view;
 
 import model.Product;
-import model.ProductColor;
-import model.ProductDetail;
 import repository.*;
-import service.Inserter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Manager extends JFrame{
@@ -55,14 +53,14 @@ public class Manager extends JFrame{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((new RepoProduct().findName(product_id.getText()))) {
-                    new RepoProduct().insert(new Product(
+                if (!(new RepoProduct().findName(product_id.getText()))) {
+                    new Repo<model.Product>().insert(new Product(
                             product_id.getText(),
                             product_name.getText()
                     ));
                 }
-                new Repo<ProductDetail>().insert(
-                    new ProductDetail(
+                new Repo<model.ProductDetail>().insert(
+                    new model.ProductDetail(
                         new RepoProduct()
                                 .findIdByName(product_name.getText()),
                         new RepoProductColor()
@@ -78,7 +76,7 @@ public class Manager extends JFrame{
         });
 
         product_color.setModel(new DefaultComboBoxModel(
-            new RepoProductColor().selectAllName()
+            new RepoProductColor().findAllName()
         ));
 
         product_line.setModel(new DefaultComboBoxModel(
@@ -108,18 +106,28 @@ public class Manager extends JFrame{
                 }
             }
         });
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                var product_updater = new view.ProductDetail(new RepoProductDetail().findById(product_id.getText()));
+                product_updater.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                product_updater.setVisible(true);
+                new Repo<model.ProductDetail>().update(product_updater.update());
+                fillTable();
+            }
+        });
     }
 
     public void fillTable() {
         this.staff_model.setRowCount(0);
-        for (ProductDetail i: new RepoProductDetail().findAll()) {
+        for (model.ProductDetail i: new RepoProductDetail().findAll()) {
             this.staff_model.addRow(
                     i.toStrings()
             );
         }
 
         this.customer_model.setRowCount(0);
-        for (ProductDetail i: new RepoProductDetail().findAll()) {
+        for (model.ProductDetail i: new RepoProductDetail().findAll()) {
             this.customer_model.addRow(
                     i.toStrings()
             );

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class RepoProductColor extends DataQuery {
 
-    public String[] selectAllName() {
+    public String[] findAllName() {
         return ((List<String>)createQuery("SELECT PC.Name FROM ProductColor PC")
                 .list())
                 .toArray(new String[0]);

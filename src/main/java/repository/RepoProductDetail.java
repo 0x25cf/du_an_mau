@@ -20,9 +20,8 @@ public class RepoProductDetail extends DataQuery {
     }
 
     public model.ProductDetail findById(String product_id) {
-        var result = (List<model.ProductDetail>)createQuery("FROM " +
-            ProductDetail.class.getSimpleName() + " PD " +
-            "WHERE PD.ProductId = " + SQLStr(product_id)
+        var result = (List<model.ProductDetail>)createQuery(
+                "FROM ProductDetail AS PD RIGHT OUTER JOIN PD.product AS P WHERE P.ProductId = " + SQLStr(product_id)
         ).list();
         return result.get(0);
     }

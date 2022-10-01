@@ -13,6 +13,18 @@ public class RepoProduct extends DataQuery {
                 .isEmpty());
     }
 
+    public ArrayList<String> findAllProductId() {
+        return (ArrayList<String>) createQuery("""
+                SELECT P.ProductId FROM Product P
+                """).list();
+    }
+
+    public ArrayList<String> findAllProductName() {
+        return (ArrayList<String>) createQuery("""
+                SELECT P.Name FROM Product P
+                """).list();
+    }
+
     public ArrayList<model.Product> findById(String product_id) {
         return new ArrayList<model.Product>(createQuery("FROM Product P WHERE P.ProductId = " + SQLStr(product_id))
                 .list());
@@ -31,14 +43,5 @@ public class RepoProduct extends DataQuery {
         var result = findById(product_id);
         if (result.isEmpty()) return "";
         return result.get(0).getName();
-    }
-
-
-    public boolean insert(Product product) {
-        var s = openSession();
-        s.beginTransaction();
-        s.persist(product);
-        s.getTransaction().commit();
-        return true;
     }
 }
