@@ -2,8 +2,8 @@ model/Staff.class
 repository/RepoProduct.class
 model/ProductDetail.class
 model/Product.class
-service/Inserter.class
-view/Register.class
+view/ProductDetail.class
+view/Manager$4.class
 repository/Repo.class
 model/Producer.class
 view/Manager$2.class
@@ -19,6 +19,8 @@ repository/DataQuery.class
 repository/RepoProductColor.class
 model/ProductColor.class
 view/Manager.class
+view/ProductDetail$1.class
 view/Manager$3.class
 view/Manager$1.class
 model/ProductLine.class
+view/UpdateProductdetail.class
