@@ -25,9 +25,9 @@ public class RepoProduct extends DataQuery {
                 """).list();
     }
 
-    public ArrayList<model.Product> findById(String product_id) {
-        return new ArrayList<model.Product>(createQuery("FROM Product P WHERE P.ProductId = " + SQLStr(product_id))
-                .list());
+    public String findIdByProductId(String product_id) {
+        return (createQuery("SELECT P.id FROM Product P WHERE P.ProductId = " + SQLStr(product_id))
+                .list()).get(0).toString();
     }
 
     public ArrayList<model.Product> findByName(String product_name) {
@@ -37,6 +37,12 @@ public class RepoProduct extends DataQuery {
 
     public String findIdByName(String product_name) {
         return findByName(product_name).get(0).getId();
+    }
+
+    public ArrayList<model.Product> findById(String product_id) {
+        return (ArrayList<Product>)
+                (createQuery("FROM Product P WHERE P.ProductId = " + SQLStr(product_id)))
+                .list();
     }
 
     public String findNameById(String product_id) {

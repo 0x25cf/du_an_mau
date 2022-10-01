@@ -63,7 +63,7 @@ public class ProductDetail extends JDialog {
         });
     }
     public model.ProductDetail update () {
-        product.setProductId(product_id.getSelectedItem().toString());
+        product.setProductId(new RepoProduct().findIdByProductId(product_id.getSelectedItem().toString()));
         product.setProductColorId(new RepoProductColor().findIdByName(product_color.getSelectedItem().toString()));
         product.setProducerId(new RepoProducer().findIdByName(producer.getSelectedItem().toString()));
         product.setProductLineId(new RepoProductLine().findIdByName(product_line.getSelectedItem().toString()));
